@@ -19,7 +19,7 @@ clock=pygame.time.Clock()
 
 
 snail_x_pos=600
-vel=5
+velocity=5
 run=True
 while run:
    
@@ -29,7 +29,9 @@ while run:
     screen.blit(sky_surface,(0,0))
     screen.blit(ground_surface,(0,300))
     screen.blit(text_surface,(300,50))
-    snail_x_pos-=vel
+    if snail_x_pos<0:
+        snail_x_pos=600
+    snail_x_pos-=velocity
     screen.blit(snail_surface,(snail_x_pos,270))
 
     #blit allows us to place one surface on another surface, here we put our surface on top of our screen(variable) surface
