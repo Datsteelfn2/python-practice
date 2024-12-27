@@ -20,6 +20,13 @@ clock=pygame.time.Clock()
 
 snail_x_pos=600
 velocity=5
+
+player_surface=pygame.image.load("graphics/Player/player_walk_1.png").convert_alpha()
+# we need to create rectangles to appropiatley place the player and snail on the ground, get rect method takes our surface and draws a rectangkle around it
+player_rect=player_surface.get_rect(midbottom=(50,300))
+snai_rect=snail_surface.get_rect(midbottom=(snail_x_pos,300))
+
+
 run=True
 while run:
    
@@ -32,7 +39,8 @@ while run:
     if snail_x_pos<-100:
         snail_x_pos=800
     snail_x_pos-=velocity
-    screen.blit(snail_surface,(snail_x_pos,270))
+    screen.blit(snail_surface,snai_rect)
+    screen.blit(player_surface,player_rect)
 
     #blit allows us to place one surface on another surface, here we put our surface on top of our screen(variable) surface
     #clock .tick 60 frames per second, frames are important
