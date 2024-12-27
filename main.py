@@ -29,8 +29,8 @@ while run:
     screen.blit(sky_surface,(0,0))
     screen.blit(ground_surface,(0,300))
     screen.blit(text_surface,(300,50))
-    if snail_x_pos<0:
-        snail_x_pos=600
+    if snail_x_pos<-100:
+        snail_x_pos=800
     snail_x_pos-=velocity
     screen.blit(snail_surface,(snail_x_pos,270))
 
