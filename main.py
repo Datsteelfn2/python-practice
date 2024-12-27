@@ -30,9 +30,14 @@ snail_rect=snail_surface.get_rect(midbottom=(600,300))
 run=True
 while run:
    
-    for even in pygame.event.get():
-        if even.type==pygame.QUIT:
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
             run=False
+        if event.type==pygame.MOUSEMOTION:
+            if player_rect.collidpoint(event.pos):
+                print('collision')
+
+        
     screen.blit(sky_surface,(0,0))
     screen.blit(ground_surface,(0,300))
     screen.blit(text_surface,(300,50))
@@ -40,10 +45,20 @@ while run:
     
     screen.blit(snail_surface,snail_rect)
     screen.blit(player_surface,player_rect)
-    player_rect.left+=1
+    
+    #player_rect.left+=1
     snail_rect.x-=4
     if snail_rect.right<=0:
         snail_rect.left=800
+    #collide rect is used to check if if the rectangles collide, this returns a 0 or 1, 0 means no collision and a 1 means there is a collision detected( can be used in if statement)
+
+    #if (player_rect.colliderect(snail_rect))==True:
+        #print('collision')
+    mouse_pos=pygame.mouse.get_pos()
+    if player_rect.collidepoint(mouse_pos):
+        print(pygame.mouse.get_pressed())
+    if player_rect.colliderect(mouse_rect):
+        print("mouse collision")
     #blit allows us to place one surface on another surface, here we put our surface on top of our screen(variable) surface
     #clock .tick 60 frames per second, frames are important
     clock.tick(60)
