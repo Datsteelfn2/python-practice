@@ -15,20 +15,14 @@ screen=pygame.display.set_mode((width,height))
 
 
 test_font=pygame.font.Font("font/Pixeltype.ttf",50)
-
+text_surface=test_font.render("Python practice",False,(64,64,64))
+text_rect=text_surface.get_rect(midtop=(400,50))
 
 sky_surface=pygame.image.load('graphics/sky.png').convert_alpha() # we use convertalpha everytime we add an image, this is to make the images  easier to use for pygame, not big differnece for small games though
 ground_surface=pygame.image.load('graphics/ground.png').convert_alpha()
-text_surface=test_font.render("Python practice",False,'Black')
-text_rect=text_surface.get_rect(midtop=(400,30))
+
 
 clock=pygame.time.Clock()
-
-
-
-
-
-
 
 
 snail_surface=pygame.image.load("graphics/snail/snail1.png").convert_alpha()
@@ -54,13 +48,12 @@ while run:
        
     screen.blit(sky_surface,(0,0))
     screen.blit(ground_surface,(0,300))
-    screen.blit(text_surface,text_rect)
-
-
-   
+    pygame.draw.rect(screen,'#c0e8ec',text_rect)
+    pygame.draw.rect(screen,'#c0e8ec',text_rect,10)
+    
     screen.blit(snail_surface,snail_rect)
     screen.blit(player_surface,player_rect)
-   
+    screen.blit(text_surface,text_rect)
     #player_rect.left+=1
     snail_rect.x-=4
     if snail_rect.right<=0:
