@@ -40,15 +40,21 @@ while run:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             run=False
-        if player_rect.bottom==300:
+        if game_active:
+            if player_rect.bottom==300:
 
-            if event.type==pygame.MOUSEBUTTONDOWN:
-                if player_rect.collidepoint(event.pos):
-                    player_gravity=-20
-            if event.type==pygame.KEYDOWN:# key down is when you press any key on the keyboard
-                if event.key==pygame.K_SPACE:
-                    player_gravity=-20
-        
+                if event.type==pygame.MOUSEBUTTONDOWN:
+                    if player_rect.collidepoint(event.pos):
+                        player_gravity=-20
+                if event.type==pygame.KEYDOWN:# key down is when you press any key on the keyboard
+                    if event.key==pygame.K_SPACE:
+                        player_gravity=-20
+        elif game_active==False:
+            if event.type==pygame.KEYDOWN:
+                if event.key==pygame.K_RCTRL:
+                    game_active=True
+                    snail_rect.x=800
+     # runs as long as the player and snail dont collide   
     if game_active:
         screen.blit(sky_surface,(0,0))
         screen.blit(ground_surface,(0,300))
@@ -70,6 +76,8 @@ while run:
         #end game
         if player_rect.colliderect(snail_rect):
             game_active=False
+    else:
+        screen.fill('Yellow')
     #collide rect is used to check if if the rectangles collide, this returns a 0 or 1, 0 means no collision and a 1 means there is a collision detected( can be used in if statement)
 
 
