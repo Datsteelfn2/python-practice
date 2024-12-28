@@ -2,8 +2,9 @@ import pygame
 pygame.init()
 # neccessary to use pygame
 def display_score():
-    time=pygame.time.get_ticks()-start_time
-    score_surface=test_font.render(f'{time}',False,(64,64,64))
+    time=int(pygame.time.get_ticks()/1000)-start_time
+    converted_time=round(time,2)
+    score_surface=test_font.render(f'{converted_time}',False,(64,64,64))
     score_rect=score_surface.get_rect(center=(400,50))
     screen.blit(score_surface,score_rect)
     
@@ -60,7 +61,7 @@ while run:
                 if event.key==pygame.K_RCTRL:
                     game_active=True
                     snail_rect.x=800
-                    start_time=pygame.time.get_ticks()
+                    start_time=int(pygame.time.get_ticks()/1000)
      # runs as long as the player and snail dont collide   
     if game_active:
         
