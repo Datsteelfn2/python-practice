@@ -1,6 +1,12 @@
 import pygame
 pygame.init()
 # neccessary to use pygame
+def display_score():
+    time=pygame.time.get_ticks()
+    score_surface=test_font.render(f'{time}',False,(64,64,64))
+    score_rect=score_surface.get_rect(center=(200,50))
+    screen.blit(score_surface,score_rect)
+    
 
 game_active=True
 
@@ -15,8 +21,8 @@ screen=pygame.display.set_mode((width,height))
 
 
 test_font=pygame.font.Font("font/Pixeltype.ttf",50)
-text_surface=test_font.render("Python practice",False,(64,64,64))
-text_rect=text_surface.get_rect(midtop=(400,50))
+'''text_surface=test_font.render("Python practice",False,(64,64,64))
+text_rect=text_surface.get_rect(midtop=(400,50))'''
 
 sky_surface=pygame.image.load('graphics/sky.png').convert_alpha() # we use convertalpha everytime we add an image, this is to make the images  easier to use for pygame, not big differnece for small games though
 ground_surface=pygame.image.load('graphics/ground.png').convert_alpha()
@@ -56,19 +62,21 @@ while run:
                     snail_rect.x=800
      # runs as long as the player and snail dont collide   
     if game_active:
+        
         screen.blit(sky_surface,(0,0))
+        display_score()
         screen.blit(ground_surface,(0,300))
-        pygame.draw.rect(screen,'#c0e8ec',text_rect)
-        pygame.draw.rect(screen,'#c0e8ec',text_rect,10)
+        '''pygame.draw.rect(screen,'#c0e8ec',text_rect)
+        pygame.draw.rect(screen,'#c0e8ec',text_rect,10)'''
         
         screen.blit(snail_surface,snail_rect)
         screen.blit(player_surface,player_rect)
-        screen.blit(text_surface,text_rect)
+        #screen.blit(text_surface,text_rect)
 
         player_gravity+=1
         player_rect.y+=player_gravity
         #player_rect.left+=1
-        snail_rect.x-=4
+        snail_rect.x-=5
         if snail_rect.right<=0:
             snail_rect.left=800
         if player_rect.bottom>=300:
