@@ -63,6 +63,8 @@ while run:
     snail_rect.x-=4
     if snail_rect.right<=0:
         snail_rect.left=800
+    if player_rect.bottom>=300:
+        player_rect.bottom=300
     
     #collide rect is used to check if if the rectangles collide, this returns a 0 or 1, 0 means no collision and a 1 means there is a collision detected( can be used in if statement)
 
