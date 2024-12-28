@@ -63,17 +63,13 @@ while run:
     snail_rect.x-=4
     if snail_rect.right<=0:
         snail_rect.left=800
-    '''keys=pygame.key.get_pressed()# return object that contains buttons and current state( if buttons are being pressed or not)
-    if keys[pygame.K_SPACE]:
-        print("Jump")'''
+    
     #collide rect is used to check if if the rectangles collide, this returns a 0 or 1, 0 means no collision and a 1 means there is a collision detected( can be used in if statement)
 
 
     #if (player_rect.colliderect(snail_rect))==True:
         #print('collision')
-    '''mouse_pos=pygame.mouse.get_pos()
-    if player_rect.collidepoint(mouse_pos):
-        print(pygame.mouse.get_pressed())'''
+    
     
     #blit allows us to place one surface on another surface, here we put our surface on top of our screen(variable) surface
     #clock .tick 60 frames per second, frames are important
