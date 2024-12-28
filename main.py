@@ -2,7 +2,7 @@ import pygame
 pygame.init()
 # neccessary to use pygame
 
-
+game_active=True
 
 
 
@@ -49,25 +49,27 @@ while run:
                 if event.key==pygame.K_SPACE:
                     player_gravity=-20
         
-       
-    screen.blit(sky_surface,(0,0))
-    screen.blit(ground_surface,(0,300))
-    pygame.draw.rect(screen,'#c0e8ec',text_rect)
-    pygame.draw.rect(screen,'#c0e8ec',text_rect,10)
-    
-    screen.blit(snail_surface,snail_rect)
-    screen.blit(player_surface,player_rect)
-    screen.blit(text_surface,text_rect)
+    if game_active:
+        screen.blit(sky_surface,(0,0))
+        screen.blit(ground_surface,(0,300))
+        pygame.draw.rect(screen,'#c0e8ec',text_rect)
+        pygame.draw.rect(screen,'#c0e8ec',text_rect,10)
+        
+        screen.blit(snail_surface,snail_rect)
+        screen.blit(player_surface,player_rect)
+        screen.blit(text_surface,text_rect)
 
-    player_gravity+=1
-    player_rect.y+=player_gravity
-    #player_rect.left+=1
-    snail_rect.x-=4
-    if snail_rect.right<=0:
-        snail_rect.left=800
-    if player_rect.bottom>=300:
-        player_rect.bottom=300
-    
+        player_gravity+=1
+        player_rect.y+=player_gravity
+        #player_rect.left+=1
+        snail_rect.x-=4
+        if snail_rect.right<=0:
+            snail_rect.left=800
+        if player_rect.bottom>=300:
+            player_rect.bottom=300
+        #end game
+        if player_rect.colliderect(snail_rect):
+            game_active=False
     #collide rect is used to check if if the rectangles collide, this returns a 0 or 1, 0 means no collision and a 1 means there is a collision detected( can be used in if statement)
 
 
