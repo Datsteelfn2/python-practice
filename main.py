@@ -40,12 +40,14 @@ while run:
     for event in pygame.event.get():
         if event.type==pygame.QUIT:
             run=False
-        if event.type==pygame.MOUSEBUTTONDOWN:
-            if player_rect.collidepoint(event.pos):
-                player_gravity=-20
-        if event.type==pygame.KEYDOWN:# key down is when you press any key on the keyboard
-            if event.key==pygame.K_SPACE:
-                player_gravity=-20
+        if player_rect.bottom==300:
+
+            if event.type==pygame.MOUSEBUTTONDOWN:
+                if player_rect.collidepoint(event.pos):
+                    player_gravity=-20
+            if event.type==pygame.KEYDOWN:# key down is when you press any key on the keyboard
+                if event.key==pygame.K_SPACE:
+                    player_gravity=-20
         
        
     screen.blit(sky_surface,(0,0))
