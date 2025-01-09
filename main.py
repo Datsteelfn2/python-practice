@@ -9,11 +9,6 @@ def display_score():
     screen.blit(score_surface,score_rect)
     
 start_time=0
-game_active=True
-
-
-
-
 
 
 width,height=800,400
@@ -21,7 +16,7 @@ screen=pygame.display.set_mode((width,height))
 #how to display images below
 
 
-test_font=pygame.font.Font("font/Pixeltype.ttf",50)
+test_font=pygame.font.Font(None,50)
 '''text_surface=test_font.render("Python practice",False,(64,64,64))
 text_rect=text_surface.get_rect(midtop=(400,50))'''
 
@@ -37,8 +32,20 @@ player_surface=pygame.image.load("graphics/Player/player_walk_1.png").convert_al
 # we need to create rectangles to appropiatley place the player and snail on the ground, get rect method takes our surface and draws a rectangkle around it
 player_rect=player_surface.get_rect(midbottom=(50,300))
 snail_rect=snail_surface.get_rect(midbottom=(600,300))
+player_stand=pygame.image.load("graphics/Player/player_stand.png").convert_alpha()
+
+
+
+#intro screen
+player_stand_rect=player_stand.get_rect(center=(400,200))
+
 
 player_gravity=0
+
+
+game_active=False
+
+
 
 
 run=True
@@ -87,7 +94,8 @@ while run:
         if player_rect.colliderect(snail_rect):
             game_active=False
     else:
-        screen.fill('Yellow')
+        screen.fill((94,129,162))
+        screen.blit(player_stand,player_stand_rect)
     #collide rect is used to check if if the rectangles collide, this returns a 0 or 1, 0 means no collision and a 1 means there is a collision detected( can be used in if statement)
 
 
