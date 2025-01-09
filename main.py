@@ -1,12 +1,7 @@
 import pygame
 pygame.init()
 # neccessary to use pygame
-def display_score():
-    time=int(pygame.time.get_ticks()/1000)-start_time
-    converted_time=round(time,2)
-    score_surface=test_font.render(f'{converted_time}',False,(64,64,64))
-    score_rect=score_surface.get_rect(center=(400,50))
-    screen.blit(score_surface,score_rect)
+
     
 start_time=0
 
@@ -32,22 +27,32 @@ player_surface=pygame.image.load("graphics/Player/player_walk_1.png").convert_al
 # we need to create rectangles to appropiatley place the player and snail on the ground, get rect method takes our surface and draws a rectangkle around it
 player_rect=player_surface.get_rect(midbottom=(50,300))
 snail_rect=snail_surface.get_rect(midbottom=(600,300))
-player_stand=pygame.image.load("graphics/Player/player_stand.png").convert_alpha()
-
 
 
 #intro screen
+player_stand=pygame.image.load("graphics/Player/player_stand.png").convert_alpha()
+player_stand=pygame.transform.rotozoom(player_stand,0,2)
 player_stand_rect=player_stand.get_rect(center=(400,200))
+
+title_text=test_font.render("Snail-Dash",0,"Black")
+title_text_rect=title_text.get_rect(center=(400,80))
+
+game_instructions=test_font.render("Press space to run",0,"Black")                                  
+game_instructions_rect=game_instructions.get_rect(center=(400,330))
+
+score=0
+
+def display_score():
+    time=int(pygame.time.get_ticks()/1000)-start_time
+    converted_time=round(time,2)
+    score_surface=test_font.render(f'{converted_time}',False,(64,64,64))
+    score_rect=score_surface.get_rect(center=(400,50))
+    screen.blit(score_surface,score_rect)
+    return time
 
 
 player_gravity=0
-
-
 game_active=False
-
-
-
-
 run=True
 while run:
    
@@ -73,7 +78,7 @@ while run:
     if game_active:
         
         screen.blit(sky_surface,(0,0))
-        display_score()
+        score=display_score()
         screen.blit(ground_surface,(0,300))
         '''pygame.draw.rect(screen,'#c0e8ec',text_rect)
         pygame.draw.rect(screen,'#c0e8ec',text_rect,10)'''
@@ -96,6 +101,16 @@ while run:
     else:
         screen.fill((94,129,162))
         screen.blit(player_stand,player_stand_rect)
+        screen.blit(title_text,title_text_rect)
+        
+        score_message=test_font.render(f"Your score {score}",0,"Black")
+        score_message_rect=score_message.get_rect(center=(400,330))
+        if score==0:
+            screen.blit(game_instructions,game_instructions_rect)
+            
+        else:
+            screen.blit(score_message,score_message_rect)
+            
     #collide rect is used to check if if the rectangles collide, this returns a 0 or 1, 0 means no collision and a 1 means there is a collision detected( can be used in if statement)
 
 
