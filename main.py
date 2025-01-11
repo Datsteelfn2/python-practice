@@ -1,4 +1,5 @@
 import pygame
+import random
 pygame.init()
 # neccessary to use pygame
 
@@ -49,6 +50,23 @@ def display_score():
     score_rect=score_surface.get_rect(center=(400,50))
     screen.blit(score_surface,score_rect)
     return time
+def obstacle_movement(obstacle_list):
+    if obstacle_list:
+        for obstacle_rect in obstacle_list:
+            obstacle_rect.x-=4
+            screen.blit(snail_surface,obstacle_rect)
+        return obstacle_list
+    else:
+        return []
+
+#obstacles
+
+
+#timer
+obstacle_timer=pygame.USEREVENT +1# need to include + 1
+pygame.time.set_timer(obstacle_timer,900)
+
+obstacle_rect_list=[]
 
 
 player_gravity=0
@@ -74,6 +92,8 @@ while run:
                     game_active=True
                     snail_rect.x=800
                     start_time=int(pygame.time.get_ticks()/1000)
+        if event.type==obstacle_timer and game_active:
+            obstacle_rect_list.append(snail_surface.get_rect(midbottom=(random.randint(900,1100),300)))
      # runs as long as the player and snail dont collide   
     if game_active:
         
@@ -90,9 +110,7 @@ while run:
         player_gravity+=1
         player_rect.y+=player_gravity
         #player_rect.left+=1
-        snail_rect.x-=5
-        if snail_rect.right<=0:
-            snail_rect.left=800
+        
         if player_rect.bottom>=300:
             player_rect.bottom=300
         #end game
@@ -116,6 +134,8 @@ while run:
 
     #if (player_rect.colliderect(snail_rect))==True:
         #print('collision')
+    #obstacle
+    obstacle_rect_list=obstacle_movement(obstacle_rect_list)
     
     
     #blit allows us to place one surface on another surface, here we put our surface on top of our screen(variable) surface
