@@ -65,6 +65,12 @@ def obstacle_movement(obstacle_list):
     else:
         return []
 
+def collisions(player,obstacles):
+    if obstacles:
+        for obstacle_rect in obstacles:
+            if player.colliderect(obstacle_rect):
+                return False
+    return True
 #obstacles
 
 
@@ -123,7 +129,9 @@ while run:
         if player_rect.bottom>=300:
             player_rect.bottom=300
         #end game
-
+        #obstacle
+        obstacle_rect_list=obstacle_movement(obstacle_rect_list)
+        game_active=collisions(player_rect,obstacle_rect_list)
     else:
         screen.fill((94,129,162))
         screen.blit(player_stand,player_stand_rect)
@@ -142,8 +150,7 @@ while run:
 
     #if (player_rect.colliderect(snail_rect))==True:
         #print('collision')
-    #obstacle
-    obstacle_rect_list=obstacle_movement(obstacle_rect_list)
+    
     
     
     #blit allows us to place one surface on another surface, here we put our surface on top of our screen(variable) surface
