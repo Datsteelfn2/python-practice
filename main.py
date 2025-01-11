@@ -27,7 +27,7 @@ snail_surface=pygame.image.load("graphics/snail/snail1.png").convert_alpha()
 player_surface=pygame.image.load("graphics/Player/player_walk_1.png").convert_alpha()
 # we need to create rectangles to appropiatley place the player and snail on the ground, get rect method takes our surface and draws a rectangkle around it
 player_rect=player_surface.get_rect(midbottom=(50,300))
-snail_rect=snail_surface.get_rect(midbottom=(600,300))
+
 
 
 #intro screen
@@ -42,6 +42,7 @@ game_instructions=test_font.render("Press space to run",0,"Black")
 game_instructions_rect=game_instructions.get_rect(center=(400,330))
 
 score=0
+fly_surface=pygame.image.load("graphics/Fly/Fly1.png").convert_alpha()
 
 def display_score():
     time=int(pygame.time.get_ticks()/1000)-start_time
@@ -54,7 +55,12 @@ def obstacle_movement(obstacle_list):
     if obstacle_list:
         for obstacle_rect in obstacle_list:
             obstacle_rect.x-=4
-            screen.blit(snail_surface,obstacle_rect)
+            if obstacle_rect.bottom==300:
+
+                screen.blit(snail_surface,obstacle_rect)
+            else:
+                screen.blit(fly_surface,obstacle_rect)
+        obstacle_list=[obstacle for obstacle in obstacle_list if obstacle.x>-100]
         return obstacle_list
     else:
         return []
@@ -64,7 +70,7 @@ def obstacle_movement(obstacle_list):
 
 #timer
 obstacle_timer=pygame.USEREVENT +1# need to include + 1
-pygame.time.set_timer(obstacle_timer,900)
+pygame.time.set_timer(obstacle_timer,1500)
 
 obstacle_rect_list=[]
 
@@ -90,10 +96,13 @@ while run:
             if event.type==pygame.KEYDOWN:
                 if event.key==pygame.K_RCTRL:
                     game_active=True
-                    snail_rect.x=800
+                    
                     start_time=int(pygame.time.get_ticks()/1000)
         if event.type==obstacle_timer and game_active:
-            obstacle_rect_list.append(snail_surface.get_rect(midbottom=(random.randint(900,1100),300)))
+            if random.randint(0,2):
+                obstacle_rect_list.append(snail_surface.get_rect(midbottom=(random.randint(900,1100),300)))
+            else:
+                obstacle_rect_list.append(fly_surface.get_rect(midbottom=(random.randint(900,1100),210)))
      # runs as long as the player and snail dont collide   
     if game_active:
         
@@ -103,7 +112,7 @@ while run:
         '''pygame.draw.rect(screen,'#c0e8ec',text_rect)
         pygame.draw.rect(screen,'#c0e8ec',text_rect,10)'''
         
-        screen.blit(snail_surface,snail_rect)
+        
         screen.blit(player_surface,player_rect)
         #screen.blit(text_surface,text_rect)
 
@@ -114,8 +123,7 @@ while run:
         if player_rect.bottom>=300:
             player_rect.bottom=300
         #end game
-        if player_rect.colliderect(snail_rect):
-            game_active=False
+
     else:
         screen.fill((94,129,162))
         screen.blit(player_stand,player_stand_rect)
